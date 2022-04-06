@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Faça o seu login</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+
 </head>
 <body>
    
@@ -37,6 +39,8 @@
                     
                 </div>
 
+                
+
                 <div class="form-group">
                     <label class="form-label" for="password">Password:</label>
                     <input class="form-control" name="password" value="{{old('password')}}" id="password" type="password" placeholder="Password">
@@ -44,12 +48,23 @@
                     
                 </div>
 
+
                 {{-- BUTTON --}}
 
                 <div class="form-group">                   
-                    <button class="btn btn-block btn-primary mt-2">Login</button>
+                    <button class="form-control btn-primary mt-2">Login</button>
                 </div>
-                <a href="/registration">New User!! register Here !!</a>
+                
+
+                {{-- LINKS --}}
+
+                <div class="form-group links mt-2"  >
+                    <a class="" href="/registration">New User!! register Here !!</a>
+                </div>
+
+
+                                
+
 
 
                 </form>

@@ -12,11 +12,11 @@
     <div class="container">
         <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <h4>Registration</h4>
+            <h4>Registration Test!</h4>
             <hr>
               
 
-            <form method="post" action="{{route('register-user')}}">
+            <form method="post" action="{{route('adduser')}}">
                  {{-- Apresentação de msg de sucesso caso cadastrar--}}
 
                 @if(Session::has('success'))
@@ -47,10 +47,9 @@
                     <label class="form-label" for="email">Perfil</label>
                     <select class="form-select" name="perfil">
 
-                        <option >Selecionar Perfil</option>
-                        <option>Admin</option>                        
-                        <option>Officer</option>
-                        <option>Client</option>
+                        <option>Director</option>                        
+                        <option>Recepcionista</option>
+                        <option>Segurança</option>
                     </select>                    
                 </div>
 
@@ -62,11 +61,14 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-block btn-primary mt-2">Register</button>
+                    <button class="btn btn-block btn-primary mt-2">Save</button>
                 </div>
-                <br>
-                <a href="/login">Already Registered!! Login Here!</a>
+                
+                <div class="form-group mt-1">
+                    <a href="/login">Already Registered!! Login Here!</a>
 
+                </div>
+                
             </form>
         </div>
         </div>

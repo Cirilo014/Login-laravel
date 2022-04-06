@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\Usuario2Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,9 @@ use App\Http\Controllers\CustomAuthController;
 |
 */
 
-/*
- Route::get('/', function () {
-    return view('welcome');
-});
 
-*/
+
+
 Route::get('/', [CustomAuthController::class, 'login'])->middleware('estaLogado');
 
 Route::get('/login', [CustomAuthController::class, 'login'])->middleware('estaLogado');
@@ -33,8 +31,6 @@ Route::get('/logout', [CustomAuthController::class, 'logout']);
 
 
 
-
-
 //Rota para o Admin
 Route::get('/admin', [CustomAuthController::class, 'admin']);
 
@@ -43,3 +39,4 @@ Route::get('/client', [CustomAuthController::class, 'client']);
 
 //Rota para o Officer
 Route::get('/officer', [CustomAuthController::class, 'officer']);
+

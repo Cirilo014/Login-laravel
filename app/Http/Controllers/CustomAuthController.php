@@ -26,10 +26,11 @@ class CustomAuthController extends Controller
             'password' => 'required'
         ]);
 
-        //Insert
+    /* Insert any User at datase */
         $user = new Usuario();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->perfil = $request->perfil;
         $user->password = Hash::make($request->password);
         
         $result = $user->save();
@@ -47,7 +48,7 @@ class CustomAuthController extends Controller
         //Validation
             $request->validate([
             //'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required'
         ],
         [
@@ -57,43 +58,52 @@ class CustomAuthController extends Controller
     );
 
         
-
-        $user = Usuario::where('email', '=', $request->email)->first();
-        if($user->perfil === 'Administrador'){
-            return redirect('admin');          
-
-        } else if($user->perfil === 'Client'){
-            return redirect('client');
-
-        }else if($user->perfil === 'Officer'){
-            return redirect('officer');
-
-        }        
-
-        if($user){  
+            /* Verificar se os Dados do banco de dados e o introduzido nos
+             Inputs são os mesmos que vêm dos Inputs*/
             
-            if(Hash::check($request->password, $user->password)){
+            $user = Usuario::where('email', '=', $request->email)->first();
+                 
+           if($user){  
+            
+           if(Hash::check($request->password, $user->password)){
                 $request->session()->put('loginId',$user->id);
-                return redirect('admin');
-                
+                //return redirect('admin');
+           }else{
+            return back()->with('fail', 'A palavra passe está errada!');
+           }
+                      
             
-            }else{
+           }else{
 
-                return back()->with('fail', 'A senha está incorreta!');
-
+            return back()->with('fail', 'Este e-mail não existe!');
+            
             }
 
-        }else{
-            
-            return back()->with('fail', 'Este e-mail não está cadastrado!');
-        }   
-        
-        
 
+
+
+            /* Verificando o nivel de Acesso ao sistema */
+            if($user->perfil  === 'Admin'){
+            return redirect('admin');          
+
+            } else if($user->perfil === 'Client'){
+                return redirect('client');
+
+            }else if($user->perfil === 'Officer'){
+                return redirect('officer');
+
+        }  
     
 }
 
-    //Dashoard
+        
+    
+    
+
+
+
+
+        //Dashoard
         public function dashboard(){
         $data = array();
         if(Session::has('loginId')){
@@ -103,12 +113,12 @@ class CustomAuthController extends Controller
         return view("dashboard", compact('data'));
     }
 
-    public function logout(){
+        public function logout(){
 
-        if(Session::has('loginId')){
-            Session::pull('loginId');
-            return redirect('login');
-        }
+            if(Session::has('loginId')){
+                Session::pull('loginId');
+                return redirect('login');
+            }
 
         //Chamar o admin
 
